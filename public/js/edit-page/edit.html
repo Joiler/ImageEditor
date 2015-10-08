@@ -1,0 +1,78 @@
+<div class="row edit-page">
+    <div class="col-md-3">
+        <h3 class="text-center">Editing</h3>
+        <form novalidate role="form">
+            <div class="form-group">
+                <label for="imageWidth">Width:</label>
+                <input type="number" min="1" class="form-control" id="imageWidth" placeholder="Enter width"
+                       ng-model="imageSettings.imageWidth" ng-disabled="imageSettings.isNotChangeSize">
+            </div>
+            <div class="form-group">
+                <label for="imageHeight">Height:</label>
+                <input type="number" min="1" class="form-control" id="imageHeight" placeholder="Enter height"
+                       ng-model="imageSettings.imageHeight"
+                       ng-disabled="imageSettings.isSaveProportions || imageSettings.isNotChangeSize">
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="imageSettings.isSaveProportions"
+                              ng-change="changeProportionsSetting()" ng-disabled="imageSettings.isNotChangeSize">Save
+                    proportions</label>
+                <label ng-show="currentImages.length > 1" class="pull-right"><input type="checkbox"
+                                                                                    ng-model="imageSettings.isNotChangeSize">Don't
+                    change size</label>
+            </div>
+            <div class="form-group">
+                <label>Brightness:</label>
+                <rzslider
+                        rz-slider-floor="-100"
+                        rz-slider-ceil="100"
+                        rz-slider-step="1"
+                        rz-slider-model="imageSettings.brightness"
+                        rz-slider-hide-limit-labels="true"></rzslider>
+            </div>
+            <div class="form-group">
+                <label>Contrast:</label>
+                <rzslider
+                        rz-slider-floor="-100"
+                        rz-slider-ceil="100"
+                        rz-slider-step="1"
+                        rz-slider-model="imageSettings.contrast"
+                        rz-slider-hide-limit-labels="true"></rzslider>
+            </div>
+            <div class="text-center action-buttons">
+                <div class="btn-group clearfix">
+                    <img class="history-icon"
+                         ng-class="{'history-icon-active': currentHistoryIndex > 0, 'history-icon-disable': currentHistoryIndex <= 0}"
+                         src="/build/images/backHistoryIcon.png" ng-click="backInHistory()">
+                    <img class="history-icon"
+                         ng-class="{'history-icon-active': localHistory.length - currentHistoryIndex > 1, 'history-icon-disable': (localHistory.length - currentHistoryIndex <= 1)}"
+                         src="/build/images/nextHistoryIcon.png" ng-click="nextInHistory()">
+                </div>
+                <div class="text-center">
+                    <div class="btn-group clearfix">
+                        <button id="canvas-apply" type="button" class="btn btn-primary" ng-click="apply()"
+                                ng-disabled="!isAnyChanged()">Apply
+                        </button>
+                        <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!isApplied">Save
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="btn-group clearfix">
+                        <button type="button" class="btn btn-default" ng-click="downloadImage()">Download</button>
+                        <button type="button" class="btn btn-default" ng-click="removeImage()">Remove</button>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="btn-group clearfix">
+                        <button type="button" class="btn btn-default" print-images images="currentImages">Print</button>
+                        <button type="button" class="btn btn-default" ng-click="sendEmail()">Send e-mail</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-9">
+        <canvas-images edit-settings="imageSettings" images="currentImages"></canvas-images>
+    </div>
+</div>

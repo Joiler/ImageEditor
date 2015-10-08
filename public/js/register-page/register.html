@@ -1,0 +1,69 @@
+<div class="row register-page">
+    <div class="row">
+        <h1 class="invite-text">We invite you to our Image Editor!</h1>
+    </div>
+    <div class="col-md-3 visible-md-block visible-lg-block">
+        <image class="base-icon" src="/build/images/baseImage.png"></image>
+    </div>
+    <div class="col-md-6">
+        <form name="registerForm" novalidate class="form-signin" ng-submit="register()">
+            <h2 class="form-signin-heading text-center">Register</h2>
+            <div class="form-group">
+                <label for="inputLogin" class="sr-only">Login</label>
+                <input type="text" name="inputLogin" id="inputLogin" class="form-control"
+                       placeholder="Login" required ng-minlength="3" ng-model="userCridentials.username">
+
+                <div class="error-messages-block" ng-messages="registerForm.inputLogin.$error"
+                     ng-if="registerForm.inputLogin.$touched">
+                    <p ng-message="required">Login is required.</p>
+                    <p ng-message="minlength">Login should be at least 3 characters.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail" class="sr-only">Email</label>
+                <input type="email" name="inputEmail" id="inputEmail" class="form-control"
+                       placeholder="Email address" required ng-model="userCridentials.email">
+
+                <div class="error-messages-block" ng-messages="registerForm.inputEmail.$error"
+                     ng-if="registerForm.inputEmail.$touched">
+                    <p ng-message="required">Email is required.</p>
+                    <p ng-message="email">Email has incorrect format.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" name="inputPassword" id="inputPassword" class="form-control"
+                       placeholder="Password" required ng-minlength="6" ng-model="userCridentials.password">
+                <div class="error-messages-block" ng-messages="registerForm.inputPassword.$error"
+                     ng-if="registerForm.inputPassword.$touched">
+                    <p ng-message="required">Password is required.</p>
+                    <p ng-message="minlength">Password should be at least 6 characters.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPasswordConfirm" class="sr-only">Confirm password</label>
+                <input type="password" name="inputPasswordConfirm" id="inputPasswordConfirm" class="form-control"
+                       placeholder="Confirm password" required ng-minlength="6"
+                       ng-model="userCridentials.passwordConfirm" match="userCridentials.password">
+
+                <div class="error-messages-block" ng-messages="registerForm.inputPasswordConfirm.$error"
+                     ng-if="registerForm.inputPasswordConfirm.$touched">
+                    <p ng-message="required">Password is required.</p>
+                    <p ng-message="minlength">Password should be at least 6 characters.</p>
+                    <p ng-message="match">Passwords are not equal.</p>
+                </div>
+            </div>
+            <div class="form-group" ng-show="isRegistrationFailed">
+                <label class="text-danger">Registration failed. Please, try another login!</label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="registerForm.$invalid">Register
+            </button>
+        </form>
+        <div class="col-md-12">
+            <h4 class="text-center">Go to <a href="#/login">Sign In </a>page</h4>
+        </div>
+    </div>
+    <div class="col-md-3 visible-md-block visible-lg-block">
+        <image class="base-icon" src="/build/images/baseImage.png"></image>
+    </div>
+</div>
