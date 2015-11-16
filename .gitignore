@@ -1,5 +1,5 @@
 .idea/
 bower_components/
-images/
 node_modules/
 public/build/
+/images
