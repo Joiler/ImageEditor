@@ -1,0 +1,97 @@
+<div class="row history-page">
+    <div class="row">
+        <div class="col-md-2 help-column">
+            <div class="panel-group">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Search images in history</div>
+                    <div class="panel-body">
+                        <form novalidate role="form">
+                            <div class="form-group">
+                                <label for="imageName">Part of name:</label>
+                                <input type="text" class="form-control" id="imageName" placeholder="Enter part of name"
+                                       ng-model="searchSettings.imageName">
+                            </div>
+                            <div class="form-group">
+                                <label for="searchImageFormat">Format:</label>
+                                <select class="form-control" id="searchImageFormat" ng-model="searchSettings.extension">
+                                    <option value="">All</option>
+                                    <option value="(.png)">.png</option>
+                                    <option value="(.jpg|.jpeg)">.jpg</option>
+                                    <option value="(.bmp)">.bmp</option>
+                                    <option value="(.gif)">.gif</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="searchImageFormat">Action:</label>
+                                <select class="form-control" id="searchImageAction" ng-model="searchSettings.action">
+                                    <option value="">All</option>
+                                    <option value="1">Removed</option>
+                                    <option value="2">Replaced</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-default pull-right" ng-click="resetSearchSettings()">
+                                Reset search settings
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">Clear history</div>
+                    <div class="panel-body">
+                        <button type="button" class="btn btn-default pull-right" ng-click="clearAllHistory()">Clear all
+                            history
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-9 history-column">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                        <th>Current image</th>
+                        <th>Image before</th>
+                        <th>Date</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="historyItem in historyItems | filter:searchHistoryItems | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit"
+                        ng-class="{'replaced-row-background': !historyItem.isRemoved, 'removed-row-background': historyItem.isRemoved}">
+                        <td class="table-cell">
+                            {{historyItem.name + historyItem.extension}}
+                        </td>
+                        <td class="table-cell">
+                            {{historyItem.isRemoved ? 'Removed' : 'Replaced'}}
+                        </td>
+                        <td class="table-cell">
+                            <div ng-if="!historyItem.isRemoved">
+                                <img class="image-preview" ng-src="image/{{historyItem.imageId}}?{{hash}}" alt="Image"
+                                     class="img-responsive">
+                            </div>
+                        </td>
+                        <td class="table-cell">
+                            <div>
+                                <img class="image-preview" ng-src="{{generateUrlForPreviousImage(historyItem)}}"
+                                     alt="Image" class="img-responsive">
+                            </div>
+                        </td>
+                        <td class="table-cell">
+                            {{historyItem.date | date:'dd/MM/yyyy HH:mm:ss'}}
+                        </td>
+                        <td class="table-cell">
+                            <a class="restore-link" ng-click="rollbackHistoryItem(historyItem)">Restore</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clearfix text-right col-md-12" ng-show="totalItems > entryLimit">
+                <pagination total-items="totalItems" items-per-page="entryLimit" ng-model="currentPage"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

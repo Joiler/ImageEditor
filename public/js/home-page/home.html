@@ -1,0 +1,18 @@
+<div class="row home-page">
+    <h1 class="text-center home-caption">Welcome to our Image Editor</h1>
+    <h2 class="text-center" ng-show="images.length > 0">You have uploaded {{images.length}} images.</h2>
+    <h2 class="text-center" ng-show="images.length === 0">You haven't uploaded images yet.</h2>
+    <h2 class="text-center" ng-show="images.length > 0"><a href="#/list">Go to Images list</a></h2>
+    <h2 class="text-center" ng-show="images.length === 0"><a href="#/list">Start uploading</a></h2>
+    <div class="col-md-6 col-md-offset-3">
+        <carousel class="home-carousel" interval="interval">
+            <slide ng-repeat="image in images" active="image.active">
+                <img ng-src="image/{{image._id}}?{{hash}}" ng-click="goToImagePage(image)">
+
+                <div class="carousel-caption" ng-click="goToImagePage(image)">
+                    <h4>{{image.name}}</h4>
+                </div>
+            </slide>
+        </carousel>
+    </div>
+</div>

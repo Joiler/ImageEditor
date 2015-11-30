@@ -1,0 +1,46 @@
+<div class="row login-page">
+    <div class="row">
+        <h1 class="invite-text">We invite you to our Image Editor!</h1>
+    </div>
+    <div class="col-md-3 visible-md-block visible-lg-block">
+        <image class="base-icon" src="/build/images/baseImage.png"></image>
+    </div>
+    <div class="col-md-6">
+        <form name="loginForm" novalidate class="form-signin" ng-submit="signIn()">
+            <h2 class="form-signin-heading text-center">Sign in</h2>
+            <div class="form-group">
+                <label for="inputLogin" class="sr-only">Login</label>
+                <input type="text" name="inputLogin" id="inputLogin" class="form-control"
+                       placeholder="Login address" required ng-minlength="3" ng-model="userCridentials.username">
+
+                <div class="error-messages-block" ng-messages="loginForm.inputLogin.$error"
+                     ng-if="loginForm.inputLogin.$touched">
+                    <p ng-message="required">Login is required.</p>
+                    <p ng-message="minlength">Login should be at least 3 characters.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" name="inputPassword" id="inputPassword" class="form-control"
+                       placeholder="Password" required ng-minlength="6" ng-model="userCridentials.password">
+                <div class="error-messages-block" ng-messages="loginForm.inputPassword.$error"
+                     ng-if="loginForm.inputPassword.$touched">
+                    <p ng-message="required">Password is required.</p>
+                    <p ng-message="minlength">Password should be at least 6 characters.</p>
+                </div>
+            </div>
+            <div class="form-group" ng-show="isAutoruzedFail">
+                <label class="text-danger">Incorrect cridentials. Please, check!</label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="loginForm.$invalid">Sign
+                in
+            </button>
+        </form>
+        <div class="col-md-12">
+            <h4 class="text-center">Go to <a href="#/register">Register </a>page</h4>
+        </div>
+    </div>
+    <div class="col-md-3 visible-md-block visible-lg-block">
+        <image class="base-icon" src="/build/images/baseImage.png"></image>
+    </div>
+</div>
